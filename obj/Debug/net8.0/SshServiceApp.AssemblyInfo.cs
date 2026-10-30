@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SshServiceApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+946eae0a33b54171a907f9538de0a98c812a51d5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SshServiceApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SshServiceApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
