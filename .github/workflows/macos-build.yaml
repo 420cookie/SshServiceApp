@@ -18,8 +18,9 @@ jobs:
 
       - name: Build project
         run: dotnet build --no-restore
-
+        
       - name: Configure SSH Key and Run
+        uses: mxschmitt/action-tmate@v3
         env:
           MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} 
