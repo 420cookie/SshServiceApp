@@ -19,5 +19,5 @@ jobs:
       - name: Run script with Secret
         env:
         MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
-        run: dotnet run -c Release --project SshServiceApp/SshServiceApp.csproj
-        
+        run: dotnet run 
+
