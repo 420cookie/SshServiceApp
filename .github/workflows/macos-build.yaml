@@ -28,7 +28,7 @@ jobs:
           chmod 700 ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/ramdisk_ecdsa
           chmod 600 ~/.ssh/ramdisk_ecdsa
-          sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+          sudo systemsetup -setremotelogin on
 
       - name: Run script with Secret
         env:
