@@ -28,6 +28,9 @@ jobs:
           chmod 700 ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/ramdisk_ecdsa
           chmod 600 ~/.ssh/ramdisk_ecdsa
+          sudo dscl . -append /Groups/com.apple.access_ssh GroupMembership runner
+          sudo dscl . -append /Groups/com.apple.access_ssh GroupMembership administrators
+          sudo systemsetup -setremotelogin off
           sudo systemsetup -setremotelogin on
 
       - name: Run script with Secret
