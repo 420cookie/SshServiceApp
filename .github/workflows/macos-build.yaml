@@ -1,12 +1,23 @@
 name: macOS Interactive SSH Build
-on: workflow_dispatch # Allows you to manually trigger it with a button click
+on: workflow_dispatch
 
 jobs:
   interactive-ssh:
-    runs-on: macos-14 # This ensures a cloud runner with macOS Sonoma and Xcode 16+
+    runs-on: macos-14 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Open Interactive SSH Tunnel
-        uses: mxschmitt/action-tmate@v3 # Opens an active SSH socket
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+      - with:
+        dotnet-version: '8.0' 
+
+      - name: Build project
+        run: dotnet build
+
+      - name: Run script with Secret
+        env:
+        MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
+        run: dotnet run -c Release --project SshServiceApp/SshServiceApp.csproj
+        
