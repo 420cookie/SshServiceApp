@@ -19,6 +19,20 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore
 
+      - name: Configure SSH Key and Run
+        env:
+          MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
+          # 1. Pass your raw SSH private key string from a GitHub Secret
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} 
+        run: |
+          # 2. Create the secure .ssh directory
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          
+          # 3. Write the key to the exact path the app expects
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ramdisk_ecdsa
+          chmod 600 ~/.ssh/ramdisk_ecdsa
+
       - name: Run script with Secret
         env:
           MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
