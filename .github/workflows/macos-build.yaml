@@ -19,12 +19,8 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore
         
-      - name: Setup Interactive SSH Session (tmate)
+      - name: Open SSH Tunnel
         uses: mxschmitt/action-tmate@v3
-
-      # Step 3: Run your project (Executed once you disconnect or resume)
-      - name: Run script with Secret
         env:
           MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
-        run: dotnet run
-
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
