@@ -19,8 +19,8 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore
         
-      - name: Configure SSH Key and Run
-        uses: mxschmitt/action-tmate@v3
+      # Step 1: Set up keys and start the native SSH daemon
+      - name: Configure SSH Key and Environment
         env:
           MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} 
@@ -34,7 +34,13 @@ jobs:
           sudo systemsetup -setremotelogin off
           sudo systemsetup -setremotelogin on
 
+      # Step 2: Launch the interactive tmate breakpoint wrapper
+      - name: Setup Interactive SSH Session (tmate)
+        uses: mxschmitt/action-tmate@v3
+
+      # Step 3: Run your project (Executed once you disconnect or resume)
       - name: Run script with Secret
         env:
           MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
-        run: dotnet run 
+        run: dotnet run
+
