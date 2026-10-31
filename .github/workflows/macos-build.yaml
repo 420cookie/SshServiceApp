@@ -19,22 +19,6 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore
         
-      # Step 1: Set up keys and start the native SSH daemon
-      - name: Configure SSH Key and Environment
-        env:
-          MY_PASSPHRASE: ${{ secrets.MY_PASSPHRASE }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} 
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ramdisk_ecdsa
-          chmod 600 ~/.ssh/ramdisk_ecdsa
-          sudo dscl . -append /Groups/com.apple.access_ssh GroupMembership runner
-          sudo dscl . -append /Groups/com.apple.access_ssh GroupMembership administrators
-          sudo systemsetup -setremotelogin off
-          sudo systemsetup -setremotelogin on
-
-      # Step 2: Launch the interactive tmate breakpoint wrapper
       - name: Setup Interactive SSH Session (tmate)
         uses: mxschmitt/action-tmate@v3
 
